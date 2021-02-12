@@ -1,0 +1,42 @@
+FROM rocker/verse:latest
+MAINTAINER "Carlos Zambrana-Torrelio" zambrana@ecohealthalliance.org
+## Installs to help install
+RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages --allow-unauthenticated --no-install-recommends --no-upgrade \
+    curl \
+    gnupg \
+    htop \
+    hugo \
+    libgsl-dbg \
+    libgsl-dev \
+    libglpk40 \ 
+    libfftw3-dev \
+    openssh-server \
+    wget \
+    zlib1g-dev \
+    xclip \
+  && RSTUDIO_URL="https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1103-amd64.deb" \
+  && wget -q $RSTUDIO_URL \
+  && dpkg -i rstudio-server-*-amd64.deb \
+  && rm rstudio-server-*-amd64.deb \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
+### R config and packages
+RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
+  && echo "CXXFLAGS=-w"  >> /usr/local/lib/R/etc/Makevars.site \
+  && echo "MAKEFLAGS=-j$(nproc)"  >> /usr/local/lib/R/etc/Makevars.site \
+## install from github 
+  && installGithub.r -d s-u/unixtools \
+  uribo/textlintr \
+  pzhaonet/rmd \
+## Compile R packages
+  && install2.r --error --skipinstalled \
+  config \
+  ggthemes \
+  here \
+  janitor \
+  lemon \
+  linl \
+  pinp \
+  printr \
+  && R -e "update.packages(ask = FALSE)" \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds /root/tmp/downloaded_packages
