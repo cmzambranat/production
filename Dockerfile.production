@@ -26,7 +26,6 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   && echo "MAKEFLAGS=-j$(nproc)"  >> /usr/local/lib/R/etc/Makevars.site \
 ## install from github 
   && installGithub.r -d s-u/unixtools \
-  uribo/textlintr \
   pzhaonet/rmd \
 ## Compile R packages
   && install2.r --error --skipinstalled \
