@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essen
 RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   && echo "CXXFLAGS=-w"  >> /usr/local/lib/R/etc/Makevars.site \
   && echo "MAKEFLAGS=-j$(nproc)"  >> /usr/local/lib/R/etc/Makevars.site \
-## install from github 
-  && installGithub.r -d s-u/unixtools \
-  pzhaonet/rmd \
 ## Compile R packages
   && install2.r --error --skipinstalled \
   config \
@@ -37,5 +34,8 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   linl \
   pinp \
   printr \
+## install from github 
+  && installGithub.r -d s-u/unixtools \
+  pzhaonet/rmd \
   && R -e "update.packages(ask = FALSE)" \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds /root/tmp/downloaded_packages
