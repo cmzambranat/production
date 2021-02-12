@@ -27,7 +27,7 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
 ## Compile R packages
   && install2.r --error --skipinstalled \
   bookdownplus \
-  citr \
+  blogdown \
   mindr \ 
   pagedown \
   shinyjs \
@@ -41,6 +41,5 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   printr \
 ## install from github 
   && installGithub.r -d s-u/unixtools \
-  pzhaonet/rmd \
   && R -e "update.packages(ask = FALSE)" \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds /root/tmp/downloaded_packages
