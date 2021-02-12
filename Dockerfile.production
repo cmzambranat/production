@@ -26,6 +26,11 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   && echo "MAKEFLAGS=-j$(nproc)"  >> /usr/local/lib/R/etc/Makevars.site \
 ## Compile R packages
   && install2.r --error --skipinstalled \
+  bookdownplus \
+  citr \
+  mindr \ 
+  pagedown \
+  shinyjs \
   config \
   ggthemes \
   here \
