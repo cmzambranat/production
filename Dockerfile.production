@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essen
     wget \
     zlib1g-dev \
     xclip \
-  && RSTUDIO_URL="https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1103-amd64.deb" \
+  && RSTUDIO_URL="https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1725-amd64.deb" \
   && wget -q $RSTUDIO_URL \
   && dpkg -i rstudio-server-*-amd64.deb \
   && rm rstudio-server-*-amd64.deb \
