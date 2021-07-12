@@ -11,7 +11,7 @@ jobs:
      - deploy:
            name: "Push to Docker Hub"
            command: |
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              if [ "${CIRCLE_BRANCH}" == "main" ]; then
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
                 docker push cmzambranat/production
               fi
