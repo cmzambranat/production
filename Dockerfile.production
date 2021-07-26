@@ -14,6 +14,16 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essen
     wget \
     zlib1g-dev \
     xclip \
+    zsh \
+    fonts-powerline \
+# terminal colors with xterm
+    ENV TERM xterm
+## set the zsh theme
+    ENV ZSH_THEME agnoster
+## run the installation script  
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+# start zsh
+CMD [ "zsh" ]
   && RSTUDIO_URL="https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1103-amd64.deb" \
   && wget -q $RSTUDIO_URL \
   && dpkg -i rstudio-server-*-amd64.deb \
