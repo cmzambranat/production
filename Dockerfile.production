@@ -16,14 +16,6 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essen
     xclip \
     zsh \
     fonts-powerline \
-# terminal colors with xterm
-    ENV TERM xterm
-## set the zsh theme
-    ENV ZSH_THEME agnoster
-## run the installation script  
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
-# start zsh
-CMD [ "zsh" ]
   && RSTUDIO_URL="https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1725-amd64.deb" \
   && wget -q $RSTUDIO_URL \
   && dpkg -i rstudio-server-*-amd64.deb \
@@ -53,3 +45,11 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   && installGithub.r -d s-u/unixtools \
   && R -e "update.packages(ask = FALSE)" \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds /root/tmp/downloaded_packages
+# terminal colors with xterm
+    ENV TERM xterm
+## set the zsh theme
+    ENV ZSH_THEME agnoster
+## run the installation script  
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+# start zsh
+CMD [ "zsh" ]
