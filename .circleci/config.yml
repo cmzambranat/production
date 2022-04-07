@@ -7,13 +7,13 @@ jobs:
      - run:
            name: "Build rmarkdown packages container"
            command: |
-            docker build -f Dockerfile.production -t cmzambranat/production .
+            docker build -f Dockerfile.production -t cmzambranat/production:4.1.3 .
      - deploy:
            name: "Push to Docker Hub"
            command: |
               if [ "${CIRCLE_BRANCH}" == "main" ]; then
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
-                docker push cmzambranat/production
+                docker push cmzambranat/production:4.1.3
               fi
 workflows:
    version: 2
