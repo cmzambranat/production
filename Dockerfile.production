@@ -20,6 +20,10 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essen
   && rm rstudio-server-*-amd64.deb \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
+  sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
+    -p git -p ssh-agent -p 'history-substring-search' \
+    -a 'bindkey "\$terminfo[kcuu1]" history-substring-search-up' \
+    -a 'bindkey "\$terminfo[kcud1]" history-substring-search-down'
 ### R config and packages
 RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   && echo "CXXFLAGS=-w"  >> /usr/local/lib/R/etc/Makevars.site \
@@ -47,11 +51,7 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   patchwork \
 ## install from github 
   && installGithub.r -d s-u/unixtools \
-  && R -e "update.packages(ask = FALSE); tinytex::install_tinytex(force = TRUE); tinytex::tlmgr_update()" \
+  && R -e "update.packages(ask = FALSE); tinytex::install_tinytex(force = TRUE)" \
   && rm /usr/local/lib/R/etc/Makevars.site \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds /root/tmp/downloaded_packages
 COPY --chown=rstudio rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
-RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
-    -p git -p ssh-agent -p 'history-substring-search' \
-    -a 'bindkey "\$terminfo[kcuu1]" history-substring-search-up' \
-    -a 'bindkey "\$terminfo[kcud1]" history-substring-search-down'
