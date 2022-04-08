@@ -41,7 +41,7 @@ RUN echo "CFLAGS=-w" >> /usr/local/lib/R/etc/Makevars.site \
   docxtractr \
   countrycode \
   ggthemes \
-  ggh4fx \
+  ggh4x \
 ## install from github 
   && installGithub.r -d s-u/unixtools \
   && R -e "update.packages(ask = FALSE); tinytex::install_tinytex(force = TRUE); tinytex::tlmgr_update()" \
